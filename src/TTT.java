@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 
 public class TTT {
-    public static int row, col, ans;
+    public static int row, col, ans, ans1;
     public static Scanner scan = new Scanner(System.in);
     public static char[][] board = new char[3][3];
     public static char turn = 'X';
@@ -15,17 +15,18 @@ public class TTT {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = '_';
+
             }
         }
         PrintBoard();
         Play();
-    }
 
+    }
     public static void Play() {
         boolean playing = true;
-
+        System.out.println('\n');
         while (playing) {
-            System.out.println("Please enter a row ");
+            System.out.println("Please enter a row : Player " + turn);
 
             do {
                 ans = scan.nextInt();
@@ -36,17 +37,42 @@ public class TTT {
                     System.out.println("Please enter a number between 1 - 3");
                     ans = scan.nextInt();
                 }
+                if ((ans < 4) && (ans > 0))
+                {
+                    playing = false;
+                } //else should exit loop
 
-            }while((ans !='1')&& (ans !='2') && (ans !='3') && (ans !='4'));
+            }while(playing);
 
             row = ans - 1;
-            System.out.println("Please enter a Column ");
-            valueCheck();
-            col = ans - 1;
+            playing = true;
+            System.out.println("Please enter a Column " + turn);
+
+
+            do {
+                ans1 = scan.nextInt();
+                if (ans1 > 3) {
+                    System.out.println("Please enter a number between 1 - 3");
+                    ans1 = scan.nextInt();
+                } else if (ans1  < 1) {
+                    System.out.println("Please enter a number between 1 - 3");
+                    ans1 = scan.nextInt();
+                }
+                if ((ans1 < 4) && (ans1 > 0))
+                {
+                    playing = false;
+                } //else should exit loop
+
+            }while(playing);
+
+            col = ans1 - 1;
+
+
 
 
         }
         board[row][col] = turn;
+        playing = true;
         if (GameOver(row, col)) {
             playing = false;
             System.out.println("Game over! Player " + turn + "wins");
@@ -58,6 +84,7 @@ public class TTT {
         else
             turn = 'X';
         PrintBoard();
+        Play();
     }
 
 
@@ -89,18 +116,6 @@ public class TTT {
         return false;
     }
 
-    public static void valueCheck() {
-        do {
-            ans = scan.nextInt();
-                if (ans > 4) {
-                    System.out.println("Please enter a number between 1 - 3");
-                     ans = scan.nextInt();
-                } else if (ans  < 1) {
-                    System.out.println("Please enter a number between 1 - 3");
-                   ans = scan.nextInt();
-                }
 
-            }while((ans !='1')&& (ans !='2') && (ans !='3') && (ans !='4'));
-        }
 
     }
