@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class TTT {
     public static int row, col, ans, ans1;
+    public static int turns1 = 0;
     public static Scanner scan = new Scanner(System.in);
     public static char[][] board = new char[3][3];
     public static char turn = 'X';
@@ -22,6 +23,7 @@ public class TTT {
         Play();
 
     }
+
     public static void Play() {
         boolean playing = true;
         System.out.println('\n');
@@ -33,16 +35,15 @@ public class TTT {
                 if (ans > 3) {
                     System.out.println("Please enter a number between 1 - 3");
                     ans = scan.nextInt();
-                } else if (ans  < 1) {
+                } else if (ans < 1) {
                     System.out.println("Please enter a number between 1 - 3");
                     ans = scan.nextInt();
                 }
-                if ((ans < 4) && (ans > 0))
-                {
+                if ((ans < 4) && (ans > 0)) {
                     playing = false;
                 } //else should exit loop
 
-            }while(playing);
+            } while (playing);
 
             row = ans - 1;
             playing = true;
@@ -54,20 +55,17 @@ public class TTT {
                 if (ans1 > 3) {
                     System.out.println("Please enter a number between 1 - 3");
                     ans1 = scan.nextInt();
-                } else if (ans1  < 1) {
+                } else if (ans1 < 1) {
                     System.out.println("Please enter a number between 1 - 3");
                     ans1 = scan.nextInt();
                 }
-                if ((ans1 < 4) && (ans1 > 0))
-                {
+                if ((ans1 < 4) && (ans1 > 0)) {
                     playing = false;
                 } //else should exit loop
 
-            }while(playing);
+            } while (playing);
 
             col = ans1 - 1;
-
-
 
 
         }
@@ -75,7 +73,7 @@ public class TTT {
         playing = true;
         if (GameOver(row, col)) {
             playing = false;
-            System.out.println("Game over! Player " + turn + "wins");
+            System.out.println("Game over! Player " + turn + " wins");
         }
 
 
@@ -101,21 +99,30 @@ public class TTT {
 
     public static boolean GameOver(int nMove, int cMove) {
 
-        if (board[0][cMove] == board[1][cMove]
-                && board[0][cMove] == board[2][cMove])
-            return true;
-        if (board[nMove][0] == board[nMove][1]
-                && board[nMove][0] == board[nMove][2])
-            return true;
-        if (board[0][0] == board[1][1] && board[0][0] == board[2][2]
-                && board[1][1] != '_')
-            return true;
-        if (board[0][2] == board[1][1] && board[0][2] == board[2][0]
-                && board[1][1] != '_')
-            return true;
+        turns1 = turns1 + 1;
+        if (turns1 > 8) {
+            System.out.println("Game over! Nobody won");
+            turns1 = 0;
+            main(null);
+        } else {
+            if (board[0][cMove] == board[1][cMove]
+                    && board[0][cMove] == board[2][cMove])
+                return true;
+            if (board[nMove][0] == board[nMove][1]
+                    && board[nMove][0] == board[nMove][2])
+                return true;
+            if (board[0][0] == board[1][1] && board[0][0] == board[2][2]
+                    && board[1][1] != '_')
+                return true;
+            if (board[0][2] == board[1][1] && board[0][2] == board[2][0]
+                    && board[1][1] != '_')
+                return true;
+
+
+        }
+
         return false;
-    }
 
 
-
-    }
+        }
+}
